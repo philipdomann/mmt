@@ -7,14 +7,8 @@
  * @param model {gapi.drive.realtime.Model} the Realtime root model object.
  */
 function initializeModel(model) {
-
-    var bubbles = new Array();
-    for (var i = 0; i < BubbleWorld.count; i++) {
-        bubbles.push(true);
-    }
-
-    var myList = model.createList(bubbles);
-    model.getRoot().set('myList', myList);
+   var myList = model.createList();
+   model.getRoot().set('myList', myList);
 }
 
 /**
@@ -26,20 +20,36 @@ function initializeModel(model) {
  */
 function onFileLoaded(doc) {
 
+    var myList = doc.getModel().getRoot().get('myList');
+    refreshUI(myList);
 
+    var createButton = document.getElementById('create_element_button');
 
-//    var ownButton = document.getElementById('own_button');
-//
-//    ownButton.onclick = function(e) {
-//        myList.set(0, !myList.get(0));
-//    };
-//
-//    var onOwnButtonClick = function(e) {
-//        ownButton.disabled = true;
-//    };
-//
-//    myList.addEventListener(gapi.drive.realtime.EventType.VALUES_SET, onOwnButtonClick);
+    createButton.onclick = function(e) {
+        var elementValue = $('#element_input').val();
+        myList.push(elementValue);
+    };
 
+    var onDataChange = function(e) {
+        refreshUI(myList);
+    };
+
+    myList.addEventListener(gapi.drive.realtime.EventType.VALUES_ADDED, onDataChange);
+
+    $('#element_list').on('focusout', 'div', function(){
+        var divEl = $(this);
+        var index = divEl.data()['index'];
+        var input = divEl.children()[0];
+        var value = $(input).val();
+        myList.set(index, value);
+    });
+    myList.addEventListener(gapi.drive.realtime.EventType.VALUES_SET, onDataChange);
+
+    $('#element_list').on('click', '.button_remove',function(){
+        var index = $(this).parent().data()['index'];
+        myList.remove(index);
+    });
+    myList.addEventListener(gapi.drive.realtime.EventType.VALUES_REMOVED, onDataChange);
 }
 
 /**
@@ -49,7 +59,7 @@ var realtimeOptions = {
     /**
      * Client ID from the APIs Console.
      */
-    clientId: '621468593885-8nquh0jl33fqmgfuu3r2p34huuiav6qb.apps.googleusercontent.com',
+    clientId: '621468593885-jutp14bvtokmdraalrgpb12e9edmp8g3.apps.googleusercontent.com',
     /**
      * The ID of the button to click to authorize. Must be a DOM element ID.
      */
@@ -65,34 +75,26 @@ var realtimeOptions = {
     /**
      * Autocreate files right after auth automatically.
      */
-    defaultTitle: "New Realtime Quickstart File",
+    defaultTitle: "MMT - Realtime API",
     /**
      * Function to be called every time a Realtime file is loaded.
      */
     onFileLoaded: onFileLoaded
-}
+};
 
 /**
  * Start the Realtime loader with the options.
  */
 function startRealtime() {
-    for (var i = 0; i < BubbleWorld.count; i++) {
-        $('body').append('<div class="bubble" data-bid="' + i + '"></div>');
-    }
-
     var realtimeLoader = new rtclient.RealtimeLoader(realtimeOptions);
     realtimeLoader.start();
 }
 
-var BubbleWorld = {
-    count: 3
-};
-
-$(document).on('click', '.bubble', function() {
-    var data = $(this).data();
-});
-
-$(".bubble").click(function() {
-    // Holds the product ID of the clicked element
-    var data = $(this).data();
-});
+function refreshUI (elements) {
+    $('#element_list').empty();
+    var i = 0;
+    $.each(elements.asArray(), function(index, val) {
+        i++;
+        $('#element_list').append('<div data-index=' + index + '>' + i + '. <input value="' + val + '"><button class="button_remove">X</button></div>');
+    });
+}

@@ -1,4 +1,0 @@
-mmt
-===
-
-Vorlesung Multimediakommunikation
