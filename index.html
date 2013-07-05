@@ -1,50 +1,159 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-    <head>
-        <title>
-            Google Drive Realtime quickstart
-        </title>
-        <meta http-equiv="X-UA-Compatible" content="IE=9">
-        <!-- Load the Realtime libraries. -->
-        <script type="text/javascript" src="https://apis.google.com/js/api.js">
-                        
-        </script>
-        <!-- Load the utility library. -->
-        <script type="text/javascript" src="js/jquery/jquery-1.9.1.js">
-                        
-        </script>
-        <script type="text/javascript" src="js/google_realtime/api.js">
-                        
-        </script>
-        <script type="text/javascript" src="js/google_realtime/realtime-client-utils.js">
-                        
-        </script>
-        <script type="text/javascript" src="js/my.js">
-                        
-        </script>
-        <!-- CSS -->
-        <!-- <link rel='stylesheet' type="text/css" href='css/ui-lightness/jquery-ui-1.10.3.custom.css'> -->
-        <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-        <link rel='stylesheet' type="text/css" href='css/my.css'>
-    </head>
-    <!-- Start Realtime when the body has loaded. -->
-    <body onLoad='startRealtime()'>
-        <h1>
-            MMT: Realtime API - Prototyp
-        </h1>
-        <div id="element_container">
-            <div id="element_list">
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Google Drive Realtime API
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body { padding-top: 20px; padding-bottom: 40px; } /* Custom container */ .container-narrow
+      { margin: 0 auto; max-width: 700px; } .container-narrow > hr { margin: 30px 0; }
+      /* Main marketing message and sign up button */ .jumbotron { margin: 60px 0; text-align:
+      center; } .jumbotron h1 { font-size: 72px; line-height: 1; } .jumbotron .btn { font-size:
+      21px; padding: 14px 24px; } /* Supporting marketing content */ .marketing { margin:
+      60px 0; } .marketing p + h4 { margin-top: 28px; }
+    </style>
+    <link href="vendor/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="vendor/bootstrap/js/html5shiv.js">
+                                                                                    
+      </script>
+    <![endif]-->
+    <!-- Fav and touch icons -->
+    <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="vendor/bootstrap/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="vendor/bootstrap/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="vendor/bootstrap/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="vendor/bootstrap/ico/apple-touch-icon-57-precomposed.png"> -->
+    <link rel="shortcut icon" href="files/favicon.ico">
+    <!-- Own Stylesheet Stuff -->
+    <link rel='stylesheet' type="text/css" href='css/my.css'>
+    <script>
+      function indexHTML() {
+        var urlA = document.URL.split("/");
+        urlA.pop();
+        var indexURL = urlA.join("/");
+        window.location = indexURL;
+        location.reload(true)
+      }
+    </script>
+  </head>
+  <body ng-app="GoogleRealtimeApp" onLoad='startRealtime()'>
+    <div class="container-narrow">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li class="active">
+            <a href="" onclick="indexHTML()">Home</a>
+          </li>
+          <li>
+            <a href="#/about">About</a>
+          </li>
+          <li>
+            <a href="#/contact">Contact</a>
+          </li>
+        </ul>
+        <h3 class="muted">
+          Multimediakommunikation
+        </h3>
+        <h4 class="muted">
+          Google Drive Realtime API
+        </h4>
+      </div>
+      <hr>
+      <div>
+        <p class="lead">
+          Der implementierte Prototyp dient zur Demonstrierung der Google Runtime API. Dabei
+          haben Teilnehmer die Möglichkeit gleichzeitig Listenelemente zu erstellen, zu editieren
+          und zu .
+        </p>
+        <a class="btn btn-large btn-success" id="authorizeButton" disabled>Autorisierung</a>
+        <div style="margin-top: 20px;">
+          Bei der Authentifizierung wird ein Dokument auf Google Drive erstellt. Das Dokument
+          enthält das Datenmodell, welches zur Synchronisierung der Daten verwendet wird.
         </div>
-        <div id="create_element_container">
-            <input type="text" id="element_input">
-            <button id="create_element_button">
-                Create New Element
-            </button>
-        </div>
-        <button id="authorizeButton" disabled>
-            You must authorize
-        </button>
-    </body>
+      </div>
+      <hr>
+      <div ng-view>
+      </div>
+      <hr>
+      <div class="footer">
+        <p>
+          &copy; 2013 Multimediakommunkation - Gruppe 13
+        </p>
+      </div>
+      <!-- /container -->
+      <!-- Le javascript==================================================- ->
+    <!-- Placed at the end of the document so the pages load faster -->
+      <script src="vendor/bootstrap/js/jquery.js">
+                                                                
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-transition.js">
+                                                                
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-alert.js">
+                                                                  
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-modal.js">
+                                                                 
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-dropdown.js">
+                                                                  
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-scrollspy.js">
+                                                                
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-tab.js">
+                                                                  
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-tooltip.js">
+                                                                 
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-popover.js">
+                                                                 
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-button.js">
+                                                                  
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-collapse.js">
+                                                                        
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-carousel.js">
+                                                                        
+      </script>
+      <script src="vendor/bootstrap/js/bootstrap-typeahead.js">
+                                                                        
+      </script>
+      <!-- Google Realtime API Scripts -->
+      <script type="text/javascript" src="js/google_realtime/api.js">
+                                                                                    
+      </script>
+      <script type="text/javascript" src="js/google_realtime/realtime-client-utils.js">
+                                                                
+      </script>
+      <script type="text/javascript" src="js/angular.js">
+                                                    
+      </script>
+      <!-- Own Javascript Files -->
+      <script type="text/javascript" src="js/app.js">
+                                                                
+      </script>
+      <script type="text/javascript" src="js/controllers/mainController.js">
+                                                                
+      </script>
+      <script type="text/javascript" src="js/controllers/aboutController.js">
+                                            
+      </script>
+      <script type="text/javascript" src="js/controllers/contactController.js">
+                                            
+      </script>
+      <script type="text/javascript" src="js/my.js">
+                              
+      </script>
+  </body>
 
 </html>

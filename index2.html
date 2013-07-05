@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>
+            Google Drive Realtime quickstart
+        </title>
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <!-- Load the utility library. -->
+        <script type="text/javascript" src="js/jquery/jquery-1.9.1.js">
+                        
+        </script>
+        <script type="text/javascript" src="js/google_realtime/api.js">
+                        
+        </script>
+        <script type="text/javascript" src="js/google_realtime/realtime-client-utils.js">
+                        
+        </script>
+        <script type="text/javascript" src="js/my.js">
+                        
+        </script>
+        <!-- CSS -->
+        <!-- <link rel='stylesheet' type="text/css" href='css/ui-lightness/jquery-ui-1.10.3.custom.css'> -->
+        <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+        <link rel='stylesheet' type="text/css" href='css/my.css'>
+    </head>
+    <!-- Start Realtime when the body has loaded. -->
+    <body onLoad='startRealtime()'>
+        <h1>
+            MMT: Realtime API - Prototyp
+        </h1>
+        <div id="element_container">
+            <div id="element_list">
+            </div>
+        </div>
+        <div id="create_element_container">
+            <input type="text" id="element_input">
+            <button id="create_element_button">
+                Create New Element
+            </button>
+        </div>
+        <button id="authorizeButton" disabled>
+            You must authorize
+        </button>
+    </body>
+
+</html>

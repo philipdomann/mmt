@@ -39,13 +39,13 @@ function onFileLoaded(doc) {
     $('#element_list').on('focusout', 'div', function(){
         var divEl = $(this);
         var index = divEl.data()['index'];
-        var input = divEl.children()[0];
+        var input = divEl.children()[1];
         var value = $(input).val();
         myList.set(index, value);
     });
     myList.addEventListener(gapi.drive.realtime.EventType.VALUES_SET, onDataChange);
 
-    $('#element_list').on('click', '.button_remove',function(){
+    $('#element_list').on('click', '.close',function(){
         var index = $(this).parent().data()['index'];
         myList.remove(index);
     });
@@ -95,6 +95,6 @@ function refreshUI (elements) {
     var i = 0;
     $.each(elements.asArray(), function(index, val) {
         i++;
-        $('#element_list').append('<div data-index=' + index + '>' + i + '. <input value="' + val + '"><button class="button_remove">X</button></div>');
+        $('#element_list').append('<div data-index=' + index + '><span>' + i + '.</span> <input type="text" class="span10" value="' + val + '"><button class="close">&times;</button></div>');
     });
 }
